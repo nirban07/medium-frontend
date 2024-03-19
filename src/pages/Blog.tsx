@@ -117,7 +117,8 @@ const Blog = () => {
 				<div className="p-2 font-customFont text-2xl">
 					Medium
 				</div>
-				<div className='flex gap-2 items-center justify-between'>
+				<div className='relative flex gap-2 items-center justify-between'>
+
 					<HoverCard>
 						<HoverCardTrigger>
 							<Avatar>
@@ -130,7 +131,7 @@ const Blog = () => {
 							<Button onClick={() => auth?.logOut()}>Log Out</Button>
 						</HoverCardContent>
 					</HoverCard>
-
+					<Button className=' md:hidden active:block' onClick={() => auth?.logOut()}>Log Out</Button>
 
 				</div>
 			</nav>
