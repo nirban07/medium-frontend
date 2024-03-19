@@ -1,15 +1,34 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, ReactNode, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const AuthContext = createContext();
+type DataType = { email: string, password: string, username: string }
 
-const AuthProvider = ({ children }) => {
+type AuthContextType = {
+  user: null,
+  token: string,
+  loginAction: (data: DataType, sign: string) => void,
+  logOut: () => void,
+};
+
+export const AuthContext = createContext<AuthContextType | null>(null);
+
+interface Props {
+  children?: ReactNode
+  // any props that come into the component
+}
+
+
+
+
+const AuthProvider = ({ children }: Props) => {
   const signup = "https://backend.nirban012.workers.dev/api/v1/user/signup"
   const signin = "https://backend.nirban012.workers.dev/api/v1/user/signin"
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem("site") || "");
   const navigate = useNavigate();
-  const loginAction = async (data, sign) => {
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const loginAction = async (data: DataType, sign: string) => {
     const url = sign == "signup" ? signup : signin
     try {
       const response = await fetch(url, {
@@ -47,6 +66,4 @@ const AuthProvider = ({ children }) => {
 
 export default AuthProvider;
 
-export const useAuth = () => {
-  return useContext(AuthContext);
-};
+

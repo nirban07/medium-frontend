@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useAuth } from '@/hooks/authProvider';
+import { useAuth } from '@/hooks/authHook';
 import { signupInput } from '@nirbanroy/common';
 
 const Signup = () => {
@@ -14,7 +14,7 @@ const Signup = () => {
 
 	const auth = useAuth();
 	useEffect(() => {
-		if (auth.token) {
+		if (auth?.token) {
 			navigate("/blog/bulk")
 		}
 	}, [])
@@ -26,7 +26,7 @@ const Signup = () => {
 				alert("please provide a valid input");
 				return
 			}
-			auth.loginAction({ email, password, username }, "signup");
+			auth?.loginAction({ email, password, username }, "signup");
 			return;
 		}
 		alert("please provide a valid input");
