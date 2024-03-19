@@ -59,6 +59,8 @@ const Blog = () => {
 			body: JSON.stringify({ title, content, publish })
 		})
 		const res = await response.json()
+		const blogData = await fetchBlogs();
+		setBlogs(blogData);
 		toast({
 			title: res.title,
 			description: "Blog created",
