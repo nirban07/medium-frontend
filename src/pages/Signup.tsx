@@ -17,7 +17,7 @@ const Signup = () => {
 		if (auth?.token) {
 			navigate("/blog/bulk")
 		}
-	}, [])
+	},)
 	const handleSubmitEvent = (e: { preventDefault: () => void; }) => {
 		e.preventDefault();
 		if (email !== "" && password !== "" && username !== "") {

@@ -10,7 +10,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Toaster } from '@/components/ui/toaster';
 import { useToast } from '@/components/ui/use-toast';
-import { useAuth } from '@/hooks/authProvider';
+import { useAuth } from '@/hooks/authHook';
 
 type TBlog = {
 	id: string,
@@ -30,7 +30,7 @@ const Blog = () => {
 	const [publish, setPublish] = useState(false)
 	const [user, setUser] = useState<TUser>()
 
-	const { token, logOut } = useAuth()
+	const auth = useAuth()
 
 	const { toast } = useToast()
 
@@ -38,7 +38,7 @@ const Blog = () => {
 		const response = await fetch("https://backend.nirban012.workers.dev/api/v1/blog/delpost", {
 			method: "post",
 			headers: {
-				"Authorization": `Bearer ${token}`
+				"Authorization": `Bearer ${auth?.token}`
 			},
 			body: JSON.stringify({ id })
 		})
@@ -54,7 +54,7 @@ const Blog = () => {
 		const response = await fetch("https://backend.nirban012.workers.dev/api/v1/blog/newpost", {
 			method: "post",
 			headers: {
-				"Authorization": `Bearer ${token}`
+				"Authorization": `Bearer ${auth?.token}`
 			},
 			body: JSON.stringify({ title, content, publish })
 		})
@@ -70,7 +70,7 @@ const Blog = () => {
 			const response = await fetch("https://backend.nirban012.workers.dev/api/v1/blog/user", {
 				method: "get",
 				headers: {
-					"Authorization": `Bearer ${token}`
+					"Authorization": `Bearer ${auth?.token}`
 				}
 			});
 			const data = await response.json();
@@ -86,7 +86,7 @@ const Blog = () => {
 			const response = await fetch("https://backend.nirban012.workers.dev/api/v1/user/verify", {
 				method: "post",
 				headers: {
-					"Authorization": `Bearer ${token}`
+					"Authorization": `Bearer ${auth?.token}`
 				}
 			});
 			const data = await response.json();
@@ -107,7 +107,7 @@ const Blog = () => {
 
 		fetchData();
 		fetchUser()
-	}, []);
+	});
 
 	return (
 		<div>
@@ -125,7 +125,7 @@ const Blog = () => {
 						</HoverCardTrigger>
 						<HoverCardContent >
 							<p className='bg-slate-300 p-2 mb-2'>{user?.name}</p>
-							<Button onClick={() => logOut()}>Log Out</Button>
+							<Button onClick={() => auth?.logOut()}>Log Out</Button>
 						</HoverCardContent>
 					</HoverCard>
 

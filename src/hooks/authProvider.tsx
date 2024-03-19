@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-type DataType = { email: string, password: string, username: string }
+type DataType = { email: string, password: string, username?: string }
 
 type AuthContextType = {
   user: null,
