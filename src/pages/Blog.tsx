@@ -107,7 +107,7 @@ const Blog = () => {
 
 		fetchData();
 		fetchUser()
-	});
+	}, []);
 
 	return (
 		<div>

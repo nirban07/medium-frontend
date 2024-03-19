@@ -16,7 +16,7 @@ const Signin = () => {
 		if (auth?.token) {
 			navigate("/blog/bulk")
 		}
-	},)
+	}, [])
 
 
 	function handleSubmit(e: { preventDefault: () => void; }) {
